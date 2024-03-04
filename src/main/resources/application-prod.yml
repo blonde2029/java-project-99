@@ -1,0 +1,10 @@
+spring:
+  datasource:
+    username: ${USERNAME}
+    password: ${PASSWORD}
+    url: ${JDBC_DATABASE_URL}
+  devtools:
+    restart:
+      enabled: false
+    livereload:
+      enabled: false
