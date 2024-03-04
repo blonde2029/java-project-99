@@ -1,10 +1,5 @@
 spring:
   datasource:
+    url: jdbc:${JDBC_DATABASE_URL}
     username: ${USERNAME}
     password: ${PASSWORD}
-    url: ${JDBC_DATABASE_URL}
-  devtools:
-    restart:
-      enabled: false
-    livereload:
-      enabled: false
