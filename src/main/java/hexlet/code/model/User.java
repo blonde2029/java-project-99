@@ -2,14 +2,10 @@ package hexlet.code.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 //import org.springframework.security.core.userdetails.UserDetails;
@@ -25,28 +21,19 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Getter
 @Setter
 @Table(name = "users")
-@EntityListeners(AuditingEntityListener.class)
-@ToString(onlyExplicitlyIncluded = true)
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class User implements BaseEntitiy, UserDetails {
+public class User implements BaseEntity, UserDetails {
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @ToString.Include
-    @EqualsAndHashCode.Include
-    private Long id;
+    private long id;
 
-    @ToString.Include
     private String firstName;
 
-    @ToString.Include
     private String lastName;
 
     @Email
     @Column(unique = true)
-    @ToString.Include
     private String email;
 
-    @NotBlank
     private String passwordDigest;
 
     @LastModifiedDate
