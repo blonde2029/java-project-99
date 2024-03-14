@@ -1,5 +1,6 @@
 package hexlet.code.util;
 
+import hexlet.code.model.Task;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.model.User;
 import jakarta.annotation.PostConstruct;
@@ -17,6 +18,8 @@ public class ModelGenerator {
     private Model<User> userModel;
 
     private Model<TaskStatus> taskStatusModel;
+
+    private Model<Task> taskModel;
 
     @Autowired
     private Faker faker;
@@ -36,6 +39,16 @@ public class ModelGenerator {
                 .supply(Select.field(TaskStatus::getName), () -> faker.lorem().word())
                 .supply(Select.field(TaskStatus::getSlug), () -> faker.lorem().word())
                 .ignore(Select.field(TaskStatus::getCreatedAt))
+                .toModel();
+
+        taskModel = Instancio.of(Task.class)
+                .ignore(Select.field(Task::getId))
+                .ignore(Select.field(Task::getCreatedAt))
+                .ignore(Select.field(Task::getTaskStatus))
+                .ignore(Select.field(Task::getAssignee))
+                .supply(Select.field(Task::getName), () -> faker.lorem().word())
+                .supply(Select.field(Task::getDescription), () -> faker.lorem().sentence())
+                .supply(Select.field(Task::getIndex), () -> faker.number().positive())
                 .toModel();
     }
 }
