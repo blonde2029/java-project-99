@@ -4,14 +4,21 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import java.time.LocalDate;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "tasks")
+//@EntityListeners(AuditingEntityListener.class)
+//@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+//@ToString(onlyExplicitlyIncluded = true)
 @Getter
 @Setter
 public class Task implements BaseEntity {
