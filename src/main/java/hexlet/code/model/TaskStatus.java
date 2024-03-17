@@ -9,15 +9,15 @@ import lombok.ToString;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.Instant;
 import java.time.LocalDate;
+import java.util.List;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "task_statuses")
-//@EntityListeners(AuditingEntityListener.class)
-//@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-//@ToString(onlyExplicitlyIncluded = true)
+@EntityListeners(AuditingEntityListener.class)
 @Getter
 @Setter
 public class TaskStatus implements BaseEntity {
@@ -34,5 +34,8 @@ public class TaskStatus implements BaseEntity {
     private String slug;
 
     @CreatedDate
-    private LocalDate createdAt;
+    private Instant createdAt;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "taskStatus", cascade = CascadeType.MERGE)
+    private List<Task> tasks;
 }

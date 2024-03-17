@@ -1,18 +1,16 @@
-package hexlet.code.dto.user;
+package hexlet.code.dto.label;
 
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class UserDTO {
+public class LabelDTO {
     private Long id;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String password;
+    private String name;
     private Instant createdAt;
 }

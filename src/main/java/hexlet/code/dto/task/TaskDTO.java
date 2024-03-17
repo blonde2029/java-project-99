@@ -6,6 +6,7 @@ import hexlet.code.model.User;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.Instant;
 import java.time.LocalDate;
 
 @Getter
@@ -20,5 +21,5 @@ public class TaskDTO {
     private String status;
     @JsonProperty("assignee_id")
     private Long assigneeId;
-    private LocalDate createdAt;
+    private Instant createdAt;
 }

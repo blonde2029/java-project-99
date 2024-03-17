@@ -6,12 +6,15 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -19,6 +22,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Getter
 @Setter
 @Table(name = "users")
+@EntityListeners(AuditingEntityListener.class)
 public class User implements BaseEntity, UserDetails {
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -35,10 +39,13 @@ public class User implements BaseEntity, UserDetails {
     private String passwordDigest;
 
     @LastModifiedDate
-    private LocalDate updatedAt;
+    private Instant updatedAt;
 
     @CreatedDate
-    private LocalDate createdAt;
+    private Instant createdAt;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "assignee", cascade = CascadeType.MERGE)
+    private List<Task> tasks;
 
     @Override
     public String getPassword() {

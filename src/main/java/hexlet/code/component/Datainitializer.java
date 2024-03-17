@@ -1,7 +1,9 @@
 package hexlet.code.component;
 
+import hexlet.code.model.Label;
 import hexlet.code.model.TaskStatus;
 import hexlet.code.model.User;
+import hexlet.code.repository.LabelRepository;
 import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.repository.UserRepository;
 import hexlet.code.service.CustomUserDetailsService;
@@ -12,6 +14,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -25,6 +28,8 @@ public class Datainitializer implements ApplicationRunner {
 
     @Autowired
     private final TaskStatusRepository taskStatusRepository;
+    @Autowired
+    private final LabelRepository labelRepository;
 
     private final Map<String, String> taskStatuses = Map.of(
             "Draft", "draft",
@@ -32,6 +37,10 @@ public class Datainitializer implements ApplicationRunner {
             "ToBeFixed", "to_be_fixed",
             "ToPublish", "to_publish",
             "Published", "published");
+
+    private final List<String> labels = List.of(
+            "bug",
+            "feature");
 
     @Override
     public void run(ApplicationArguments args) {
@@ -46,6 +55,12 @@ public class Datainitializer implements ApplicationRunner {
             taskStatus.setName(status.getKey());
             taskStatus.setSlug(status.getValue());
             taskStatusRepository.save(taskStatus);
+        }
+
+        for (String label : labels) {
+            var taskLabel = new Label();
+            taskLabel.setName(label);
+            labelRepository.save(taskLabel);
         }
     }
 
