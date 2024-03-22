@@ -7,7 +7,6 @@ import hexlet.code.model.User;
 import hexlet.code.repository.UserRepository;
 import hexlet.code.util.ModelGenerator;
 import org.instancio.Instancio;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -50,11 +49,6 @@ public class UserControllerTest {
         token = jwt().jwt(builder -> builder.subject("hexlet@example.com"));
         testUser = Instancio.of(modelGenerator.getUserModel()).create();
     }
-//    @AfterEach
-//    public void clean() {
-//        userRepository.deleteAll();
-//    }
-
 
     @Test
     public void testIndex() throws Exception {
