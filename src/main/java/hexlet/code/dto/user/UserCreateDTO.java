@@ -12,15 +12,12 @@ import lombok.Setter;
 public class UserCreateDTO {
     @NotBlank
     private String firstName;
-
     @NotBlank
     private String lastName;
-
     @Email
     @Column(unique = true)
     @NotBlank
     private String email;
-
     @Size(min = 3)
     private String password;
 }
