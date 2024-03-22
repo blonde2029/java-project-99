@@ -1,6 +1,12 @@
 package hexlet.code.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
 import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +17,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -33,7 +38,7 @@ public class User implements BaseEntity, UserDetails {
     private String lastName;
 
     @Email
-    @Column(unique = true)
+    @jakarta.persistence.Column(unique = true)
     private String email;
 
     private String passwordDigest;
@@ -44,7 +49,7 @@ public class User implements BaseEntity, UserDetails {
     @CreatedDate
     private Instant createdAt;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "assignee", cascade = CascadeType.MERGE)
+    @OneToMany(fetch = jakarta.persistence.FetchType.EAGER, mappedBy = "assignee", cascade = CascadeType.MERGE)
     private List<Task> tasks;
 
     @Override

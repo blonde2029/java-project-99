@@ -5,7 +5,7 @@ plugins {
 	java
 	application
 	jacoco
-	checkstyle
+	id("checkstyle")
 	id("io.sentry.jvm.gradle") version "4.3.1"
 	id("io.freefair.lombok") version "8.4"
 	id("org.springframework.boot") version "3.2.3"
@@ -77,6 +77,10 @@ tasks.withType<Test> {
 		events = mutableSetOf(TestLogEvent.FAILED, TestLogEvent.PASSED, TestLogEvent.SKIPPED)
 		showStandardStreams = true
 	}
+}
+
+tasks.sentryBundleSourcesJava {
+	enabled = System.getenv("SENTRY_AUTH_TOKEN") != null
 }
 
 tasks.jacocoTestReport {

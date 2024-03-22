@@ -11,14 +11,12 @@ import java.util.Locale;
 @SpringBootApplication
 @EnableJpaAuditing
 public class AppApplication {
+    public void main(String[] args) {
+        SpringApplication.run(AppApplication.class, args);
+    }
 
-	public static void main(String[] args) {
-		SpringApplication.run(AppApplication.class, args);
-	}
-
-	@Bean
-	public Faker getFaker() {
-		return new Faker(new Locale("en", "US"));
-	}
-
+    @Bean
+    public Faker faker() {
+        return new Faker(new Locale("en", "US"));
+    }
 }
