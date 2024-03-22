@@ -23,5 +23,4 @@ public class UserUtils {
         return  userRepository.findByEmail("hexlet@example.com")
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
-
 }

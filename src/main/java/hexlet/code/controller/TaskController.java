@@ -78,6 +78,4 @@ public class TaskController {
     public void destroy(@PathVariable long id) {
         taskRepository.deleteById(id);
     }
-
-
 }

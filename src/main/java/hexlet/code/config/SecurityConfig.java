@@ -27,7 +27,6 @@ public class SecurityConfig {
     private JwtDecoder jwtDecoder;
     @Autowired
     private PasswordEncoder passwordEncoder;
-
     @Autowired
     private CustomUserDetailsService userService;
 
@@ -38,7 +37,6 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/login").permitAll()
-//                        .requestMatchers(HttpMethod.POST, "/api/users").permitAll()
                         .requestMatchers("/api/users").permitAll()
                         .requestMatchers("index.html").permitAll()
                         .requestMatchers("/assets/**").permitAll()

@@ -26,7 +26,6 @@ import java.util.List;
 public class TaskStatusController {
     @Autowired
     private TaskStatusRepository taskStatusRepository;
-
     @Autowired
     private TaskStatusMapper taskStatusMapper;
 

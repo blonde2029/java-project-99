@@ -33,26 +33,19 @@ public class Task implements BaseEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-
     @Size(min = 1)
     @NotBlank
     private String name;
-
     private Integer index;
-
     private String description;
-
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     private TaskStatus taskStatus;
-
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JsonIgnore
     private User assignee;
-
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     private Set<Label> labels = new HashSet<>();
-
     @CreatedDate
     private Instant createdAt;
 }

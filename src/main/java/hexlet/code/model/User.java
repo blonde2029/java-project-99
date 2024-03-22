@@ -1,6 +1,7 @@
 package hexlet.code.model;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.OneToMany;
@@ -32,23 +33,16 @@ public class User implements BaseEntity, UserDetails {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private long id;
-
     private String firstName;
-
     private String lastName;
-
     @Email
-    @jakarta.persistence.Column(unique = true)
+    @Column(unique = true)
     private String email;
-
     private String passwordDigest;
-
     @LastModifiedDate
     private Instant updatedAt;
-
     @CreatedDate
     private Instant createdAt;
-
     @OneToMany(fetch = jakarta.persistence.FetchType.EAGER, mappedBy = "assignee", cascade = CascadeType.MERGE)
     private List<Task> tasks;
 

@@ -31,19 +31,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class UserControllerTest {
     @Autowired
     private MockMvc mockMvc;
-
     @Autowired
     private ObjectMapper om;
-
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private ModelGenerator modelGenerator;
-
     private User testUser;
-
     private SecurityMockMvcRequestPostProcessors.JwtRequestPostProcessor token;
+
     @BeforeEach
     public void setUp() {
         token = jwt().jwt(builder -> builder.subject("hexlet@example.com"));
@@ -123,5 +119,4 @@ public class UserControllerTest {
         );
 
     }
-
 }

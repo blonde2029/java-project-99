@@ -15,17 +15,12 @@ public class TaskCreateDTO {
     @NotBlank
     @JsonProperty("title")
     private String name;
-
     private Integer index;
-
     @JsonProperty("content")
     private String description;
-
     @NotBlank
     private String status;
-
     @JsonProperty("assignee_id")
     private Long assigneeId;
-
     private Set<Long> taskLabelIds;
 }

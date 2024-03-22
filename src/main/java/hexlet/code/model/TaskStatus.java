@@ -29,18 +29,14 @@ public class TaskStatus implements BaseEntity {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long id;
-
     @Column(unique = true)
     @NotBlank
     private String name;
-
     @Column(unique = true)
     @NotBlank
     private String slug;
-
     @CreatedDate
     private Instant createdAt;
-
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "taskStatus", cascade = CascadeType.MERGE)
     private List<Task> tasks;
 }
