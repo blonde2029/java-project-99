@@ -6,6 +6,7 @@ plugins {
 	application
 	jacoco
 	checkstyle
+	id("io.sentry.jvm.gradle") version "4.3.1"
 	id("io.freefair.lombok") version "8.4"
 	id("org.springframework.boot") version "3.2.3"
 	id("io.spring.dependency-management") version "1.1.4"
@@ -22,9 +23,21 @@ application {
 	mainClass = "hexlet.code.AppApplication"
 }
 
-
 repositories {
 	mavenCentral()
+}
+
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+}
+
+sentry {
+	includeSourceContext.set(true)
+	org.set("hexlet-aw")
+	projectName.set("java")
+	authToken = System.getenv("SENTRY_AUTH_TOKEN")
 }
 
 dependencies {
