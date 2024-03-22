@@ -11,7 +11,7 @@ import java.util.Locale;
 @SpringBootApplication
 @EnableJpaAuditing
 public class AppApplication {
-    public void main(String[] args) {
+    public static void main(String[] args) {
         SpringApplication.run(AppApplication.class, args);
     }
 
