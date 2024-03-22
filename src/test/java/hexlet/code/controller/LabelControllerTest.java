@@ -8,6 +8,7 @@ import hexlet.code.model.Label;
 import hexlet.code.repository.LabelRepository;
 import hexlet.code.util.ModelGenerator;
 import org.instancio.Instancio;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -50,6 +51,11 @@ public class LabelControllerTest {
         testLabel = Instancio.of(modelGenerator.getLabelModel()).create();
         labelRepository.save(testLabel);
         token = jwt().jwt(builder -> builder.subject("hexlet@example.com"));
+    }
+
+    @AfterEach
+    public void clean() {
+        labelRepository.deleteAll();
     }
 
     @Test

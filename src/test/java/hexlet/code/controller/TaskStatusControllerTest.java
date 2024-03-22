@@ -8,6 +8,7 @@ import hexlet.code.repository.TaskStatusRepository;
 import hexlet.code.util.ModelGenerator;
 import hexlet.code.util.UserUtils;
 import org.instancio.Instancio;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -57,6 +58,10 @@ public class TaskStatusControllerTest {
                 .create();
     }
 
+    @AfterEach
+    public void clean() {
+        taskStatusRepository.deleteAll();
+    }
     @Test
     public void testTaskStatusIndex() throws Exception {
         taskStatusRepository.save(testTaskStatus);

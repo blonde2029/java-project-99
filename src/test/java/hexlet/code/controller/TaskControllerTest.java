@@ -15,6 +15,7 @@ import hexlet.code.util.UserUtils;
 import jakarta.persistence.EntityManager;
 import net.datafaker.Faker;
 import org.instancio.Instancio;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openapitools.jackson.nullable.JsonNullable;
@@ -86,6 +87,12 @@ public class TaskControllerTest {
         testTask.setLabels(labels);
     }
 
+    @AfterEach
+    public void clean() {
+        taskRepository.deleteAll();
+        labelRepository.deleteAll();
+        taskStatusRepository.deleteAll();
+    }
     @Test
     public void testTaskIndex() throws Exception {
         taskRepository.save(testTask);
