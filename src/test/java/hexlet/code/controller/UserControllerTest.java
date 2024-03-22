@@ -50,10 +50,10 @@ public class UserControllerTest {
         token = jwt().jwt(builder -> builder.subject("hexlet@example.com"));
         testUser = Instancio.of(modelGenerator.getUserModel()).create();
     }
-    @AfterEach
-    public void clean() {
-        userRepository.deleteAll();
-    }
+//    @AfterEach
+//    public void clean() {
+//        userRepository.deleteAll();
+//    }
 
 
     @Test
