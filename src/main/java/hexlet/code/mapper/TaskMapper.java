@@ -41,6 +41,9 @@ public abstract class TaskMapper {
     @Mapping(target = "taskLabelIds", source = "labels", qualifiedByName = "getIdsByLabels")
     public abstract TaskDTO map(Task model);
 
+    @Mapping(target = "assignee", source = "assigneeId")
+    @Mapping(target = "taskStatus", source = "status", qualifiedByName = "getStatusBySlug")
+    @Mapping(target = "labels", source = "taskLabelIds", qualifiedByName = "getLabelsByIds")
     public abstract void update(TaskUpdateDTO dto, @MappingTarget Task model);
 
     @Named("getStatusBySlug")
@@ -53,11 +56,14 @@ public abstract class TaskMapper {
     @Named("getLabelsByIds")
     Set<Label> getLabelsByIds(Set<Long> ids) {
         var result = new HashSet<Label>();
+        if (ids == null) {
+            return result;
+        }
         for (var labelId : ids) {
             var label = labelRepository.findById(labelId).get();
             result.add(label);
         }
-        return ids == null ? new HashSet<>() : result;
+        return result;
     }
 
     @Named("getIdsByLabels")
