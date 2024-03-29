@@ -1,6 +1,7 @@
 package hexlet.code.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import hexlet.code.dto.user.UserCreateDTO;
 import hexlet.code.dto.user.UserUpdateDTO;
 import hexlet.code.exception.ResourceNotFoundException;
 import hexlet.code.model.User;
@@ -42,13 +43,13 @@ public class UserControllerTest {
 
     @BeforeEach
     public void setUp() {
-        token = jwt().jwt(builder -> builder.subject("hexlet@example.com"));
         testUser = Instancio.of(modelGenerator.getUserModel()).create();
+        token = jwt().jwt(builder -> builder.subject(testUser.getEmail()));
+        userRepository.save(testUser);
     }
 
     @Test
     public void testIndex() throws Exception {
-        userRepository.save(testUser);
         var result = mockMvc.perform(get("/api/users").with(token))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -59,9 +60,6 @@ public class UserControllerTest {
 
     @Test
     public void testShow() throws Exception {
-
-        userRepository.save(testUser);
-
         var request = get("/api/users/{id}", testUser.getId()).with(token);
         var result = mockMvc.perform(request)
                 .andExpect(status().isOk())
@@ -77,26 +75,29 @@ public class UserControllerTest {
 
     @Test
     public void testCreate() throws Exception {
-
+        var dto = new UserCreateDTO();
+        dto.setEmail("connor@gmail.com");
+        dto.setPassword("111");
+        dto.setFirstName("John");
+        dto.setLastName("Connor");
         var request = post("/api/users")
                 .with(token)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(om.writeValueAsString(testUser));
+                .content(om.writeValueAsString(dto));
 
         mockMvc.perform(request)
                 .andExpect(status().isCreated());
 
-        var user = userRepository.findByEmail(testUser.getEmail()).get();
+        var user = userRepository.findByEmail(dto.getEmail()).get();
 
         assertThat(user).isNotNull();
-        assertThat(user.getFirstName()).isEqualTo(testUser.getFirstName());
-        assertThat(user.getLastName()).isEqualTo(testUser.getLastName());
-        assertThat(user.getEmail()).isEqualTo(testUser.getEmail());
+        assertThat(user.getFirstName()).isEqualTo(dto.getFirstName());
+        assertThat(user.getLastName()).isEqualTo(dto.getLastName());
+        assertThat(user.getEmail()).isEqualTo(dto.getEmail());
     }
 
     @Test
     public void testUpdate() throws Exception {
-        userRepository.save(testUser);
         var data = new UserUpdateDTO();
         data.setEmail(JsonNullable.of("jack@yahoo.com"));
         data.setPassword(JsonNullable.of("111"));
